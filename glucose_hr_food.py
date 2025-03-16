@@ -12,7 +12,7 @@ st.title('Glykémie a tepová frekvence v čase')
 def load_data():
     # Načtení dat tepové frekvence
     try:
-        hr_df = pd.read_csv('hr-output.csv')
+        hr_df = pd.read_csv('hr.csv')
         hr_df['timestamp'] = pd.to_datetime(hr_df['date'])
         hr_df = hr_df.rename(columns={'heartrate': 'heart_rate'})
     except Exception as e:
@@ -21,7 +21,7 @@ def load_data():
 
     # Načtení dat glykémie
     try:
-        glucose_df = pd.read_csv('glucose.csv')
+        glucose_df = pd.read_csv('glc.csv')
         # Spojení sloupců s glykémií (historie a skenování)
         glucose_df['glucose_value'] = glucose_df['Historie údajů o glukóze mmol/L'].str.replace(',', '.').astype(float).fillna(
             glucose_df['Skenovat glukózu mmol/L'].str.replace(',', '.').astype(float)
@@ -41,7 +41,7 @@ def load_data():
 
     # Načtení dat o jídle
     try:
-        food_df = pd.read_csv('food_table_converted.csv')
+        food_df = pd.read_csv('food.csv')
 
         # Převod českých názvů dnů na anglické
         day_mapping = {
